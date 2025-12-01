@@ -9,6 +9,7 @@ import Animated, {
   useAnimatedStyle,
   useSharedValue
 } from 'react-native-reanimated';
+import GradientBackground from '../../components/GradientBackground.jsx';
 import SignupBottomSheet from '../../components/SignupBottomSheet.jsx';
 
 const { width } = Dimensions.get('window');
@@ -47,39 +48,48 @@ export default function Welcome() {
 
     return (
       <GestureHandlerRootView style={{ flex: 1 }}>
-        <View style={{ flex: 1, justifyContent: 'flex-start', paddingTop: 20 }}>
-          <View style={{ alignItems: 'center' }}>
-            <Animated.FlatList
-              data={data}
-              keyExtractor={(_, index) => index.toString()}
-              horizontal
-              showsHorizontalScrollIndicator={false}
-              contentContainerStyle={{ paddingHorizontal: ITEM_SPACING, paddingBottom: 0 }} 
-              snapToInterval={ITEM_WIDTH}
-              decelerationRate="fast"
-              onScroll={scrollHandler}
-              scrollEventThrottle={16}
-              renderItem={({ item, index }) => {
-                return <AnimatedItem item={item} index={index} scrollX={scrollX} />;
-              }}
-            />
-            <Dots data={data} scrollX={scrollX} />
-            <View style={styles.content}>
-              <Text style={styles.title}>See Beyond the{"\n"}Surface</Text>
-              <Text style={styles.tagline}>Gain control over your condition.</Text>
-  
-              <TouchableOpacity
-                style={styles.primaryButton}                                      
-                onPress={() => handleSnapPress(0)}>
-                <Text style={styles.primaryButtonText}>Let's Get Started</Text>
-              </TouchableOpacity>
-              <TouchableOpacity onPress={handleTermsPress} style={styles.termsContainer} activeOpacity={0.7}>     
-                <Text style={styles.termsText}>
-                  By continuing you agree to our <Text style={styles.termsLink}>Terms & Conditions</Text>
-                </Text>
-              </TouchableOpacity>
+        <View style={{ flex: 1 }}>
+          {/* Gradient Background */}
+          <View style={StyleSheet.absoluteFill}>
+            <GradientBackground />
+          </View>
+          
+          {/* Content */}
+          <View style={{ flex: 1, justifyContent: 'flex-start', paddingTop: 20 }}>
+            <View style={{ alignItems: 'center' }}>
+              <Animated.FlatList
+                data={data}
+                keyExtractor={(_, index) => index.toString()}
+                horizontal
+                showsHorizontalScrollIndicator={false}
+                contentContainerStyle={{ paddingHorizontal: ITEM_SPACING, paddingBottom: 0 }} 
+                snapToInterval={ITEM_WIDTH}
+                decelerationRate="fast"
+                onScroll={scrollHandler}
+                scrollEventThrottle={16}
+                renderItem={({ item, index }) => {
+                  return <AnimatedItem item={item} index={index} scrollX={scrollX} />;
+                }}
+              />
+              <Dots data={data} scrollX={scrollX} />
+              <View style={styles.content}>
+                <Text style={styles.title}>See Beyond the{"\n"}Surface</Text>
+                <Text style={styles.tagline}>Gain control over your condition.</Text>
+    
+                <TouchableOpacity
+                  style={styles.primaryButton}                                      
+                  onPress={() => handleSnapPress(0)}>
+                  <Text style={styles.primaryButtonText}>Let's Get Started</Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={handleTermsPress} style={styles.termsContainer} activeOpacity={0.7}>     
+                  <Text style={styles.termsText}>
+                    By continuing you agree to our <Text style={styles.termsLink}>Terms & Conditions</Text>
+                  </Text>
+                </TouchableOpacity>
+              </View>
             </View>
           </View>
+          
           <BottomSheetModalProvider>
             <BottomSheetModal
               ref={sheetRef}
@@ -87,7 +97,7 @@ export default function Welcome() {
               enablePanDownToClose={true}
               onDismiss={() => setisOpen(false)}
               backdropComponent={(props) => (
-                <BottomSheetBackdrop                      // for darkening background
+                <BottomSheetBackdrop
                   {...props}
                   appearsOnIndex={0}       
                   disappearsOnIndex={-1}   
@@ -99,7 +109,6 @@ export default function Welcome() {
               <BottomSheetView>
                 <SignupBottomSheet
                   onPick={(role) => {
-              
                     sheetRef.current?.dismiss();
                     
                     setTimeout(() => {
@@ -207,7 +216,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 28,
     fontWeight: '700',
-    color: '#111',
+    color: '#ffffffff',
     textAlign: 'left',
     marginLeft: -90,
     marginTop: 50,
@@ -215,22 +224,22 @@ const styles = StyleSheet.create({
   },
   tagline: {
     fontSize: 14,
-    color: '#666',
+    color: '#ffffffff',
     textAlign: 'left',
     marginLeft: -90,
     marginTop: 8,
     marginBottom: 12,
   },
   primaryButton: {
-    backgroundColor: '#61AFF2',
-    paddingVertical: 12,
+    backgroundColor: '#ffffffff',
+    paddingVertical: 13,
     borderRadius: 15,
     width: '80%',
     alignItems: 'center',
     marginTop: 35,
   },
   primaryButtonText: {
-    color: '#ffffffff',
+    color: '#2a94feff',
     fontWeight: '700',
     fontSize: 16,
   },
@@ -240,11 +249,11 @@ const styles = StyleSheet.create({
   },
   termsText: {
     fontSize: 12,
-    color: '#666',
+    color: '#ffffffff',
     textAlign: 'center',
   },
   termsLink: {
-    color: '#61AFF2',
+    color: '#ffffffff',
     fontWeight: '600',
     textDecorationLine: 'underline',
   },
