@@ -16,6 +16,10 @@ This is an [Expo](https://expo.dev) project created with [`create-expo-app`](htt
    npm i @gorhom/bottom-sheet
 
    expo install expo-image-picker
+
+   npx expo install expo-linear-gradient expo-blur
+
+   npx expo install expo-linear-gradient expo-blur @react-native-masked-view/masked-view
    ```
 
 2. Start the app

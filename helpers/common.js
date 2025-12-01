@@ -11,3 +11,4 @@ const wp = (percentage) => {
 };
 
 export { hp, wp }; //responsive dimension
+
