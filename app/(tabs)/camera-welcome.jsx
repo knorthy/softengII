@@ -133,7 +133,7 @@ export default function CameraWelcome() {
         )}
       </ScrollView>
 
-      {/* FIXED BOTTOM BAR – Two buttons side-by-side */}
+      {/* FIXED BOTTOM BAR */}
       <View style={[styles.bottomBar, { paddingBottom: insets.bottom + hp(2) }]}>
         <TouchableOpacity
           style={[styles.bottomButton, styles.uploadButton, uploading && styles.buttonDisabled]}
@@ -215,7 +215,7 @@ const styles = StyleSheet.create({
   note: { fontSize: hp(1.6), color: '#666', lineHeight: hp(2.2) },
   noteBold: { fontWeight: '700', color: '#333' },
 
-  // Bottom fixed bar with two side-by-side buttons
+  // Bottom bar button
   bottomBar: {
     position: 'absolute',
     bottom: 0,
