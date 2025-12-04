@@ -54,8 +54,17 @@ export default function Welcome() {
             <GradientBackground />
           </View>
           
+          {/* Logo at top */}
+          <View style={styles.logoContainer}>
+            <Image 
+              source={require('../../assets/images/logo.png')} 
+              style={styles.logo}
+              resizeMode="contain"
+            />
+          </View>
+          
           {/* Content */}
-          <View style={{ flex: 1, justifyContent: 'flex-start', paddingTop: 20 }}>
+          <View style={{ flex: 1, justifyContent: 'flex-start', paddingTop: 80 }}>
             <View style={{ alignItems: 'center' }}>
               <Animated.FlatList
                 data={data}
@@ -134,8 +143,28 @@ function AnimatedItem({ item, index, scrollX }) {
       (index + 1) * ITEM_WIDTH,
     ];
     const scale = interpolate(scrollX.value, inputRange, [0.8, 1, 0.8], 'clamp');
+    
+    const rotateZ = interpolate(
+      scrollX.value,
+      inputRange,
+      [15, 0, -15], 
+      'clamp'
+    );
+    
+    // Add vertical offset for arc/curve
+    const translateY = interpolate(
+      scrollX.value,
+      inputRange,
+      [40, 0, 40], // Cards on sides move down
+      'clamp'
+    );
+    
     return {
-      transform: [{ scale }],
+      transform: [
+        { scale },
+        { rotateZ: `${rotateZ}deg` },
+        { translateY }
+      ],
     };
   });
 
@@ -178,6 +207,18 @@ function Dot({ index, scrollX }) {
 }
 
 const styles = StyleSheet.create({
+  logoContainer: {
+    position: 'absolute',
+    top: 60,
+    left: 0,
+    right: 0,
+    zIndex: 10,
+    alignItems: 'center',
+  },
+  logo: {
+    width: 120,
+    height: 50,
+  },
   item: {
     width: ITEM_WIDTH,
     justifyContent: 'center',
@@ -199,11 +240,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: -70, 
+    marginTop: -0, 
   },
   dot: {
     height: 8,
-    backgroundColor: 'gray',
+    backgroundColor: 'white',
     borderRadius: 4,
     marginHorizontal: 4,
   },
@@ -219,7 +260,7 @@ const styles = StyleSheet.create({
     color: '#ffffffff',
     textAlign: 'left',
     marginLeft: -90,
-    marginTop: 50,
+    marginTop: 40,
     lineHeight: 34,
   },
   tagline: {
@@ -252,9 +293,9 @@ const styles = StyleSheet.create({
     color: '#ffffffff',
     textAlign: 'center',
   },
-  termsLink: {
-    color: '#ffffffff',
-    fontWeight: '600',
-    textDecorationLine: 'underline',
-  },
-});
+    termsLink: {
+      color: '#ffffffff',
+      fontWeight: '600',
+      textDecorationLine: 'underline',
+    },
+  });
