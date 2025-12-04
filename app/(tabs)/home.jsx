@@ -13,6 +13,7 @@ import {
 } from 'react-native';
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import AvatarBottomSheet from '../../components/AvatarBottomSheet.jsx';
+import History from '../../components/history';
 import { hp, wp } from '../../helpers/common';
 
 export default function App() {
@@ -25,6 +26,14 @@ export default function App() {
     setisOpen(true);
   }, []);
 
+  const [historyVisible, setHistoryVisible] = useState(false);
+
+  const handleSelectAssessment = (assessment) => {
+  console.log('Selected assessment:', assessment);
+  setHistoryVisible(false); 
+
+  };
+
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <BottomSheetModalProvider>
@@ -32,7 +41,8 @@ export default function App() {
       <StatusBar barStyle="dark-content" backgroundColor="#fff" />
 
       <View style={styles.topBar}>
-        <TouchableOpacity hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}>
+        <TouchableOpacity hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
+        onPress={() => setHistoryVisible(true)}>
           <Ionicons name="menu" size={28} color="#333" />
         </TouchableOpacity>
 
@@ -93,6 +103,12 @@ export default function App() {
           <Ionicons name="arrow-forward" size={18} color="#fff" style={styles.arrowIcon} />
         </TouchableOpacity>
       </View>
+
+      <History
+          visible={historyVisible}
+          onClose={() => setHistoryVisible(false)}
+          onSelectAssessment={handleSelectAssessment}
+        />
     </SafeAreaView>
 
         <BottomSheetModal
@@ -202,21 +218,21 @@ const styles = StyleSheet.create({
     paddingHorizontal: wp(6),
   },
 
-  /* Wrapper for multiple rows */
+  /*  */
   suggestionsWrapper: {
-    gap: hp(1.5),                     // vertical space between rows
+    gap: hp(1.5),                     
   },
 
   /* Horizontal Row */
   suggestionsContainer: {
     flexDirection: 'row',
-    justifyContent: 'center',        // centers the suggestions
+    justifyContent: 'center',        
     alignItems: 'center',
     paddingHorizontal: wp(5),
-    gap: wp(3),                       // space between buttons
+    gap: wp(3),                       
   },
 
-  /* Base button style (shared) */
+  /*  */
   suggestionButtonBase: {
     flexDirection: 'row',
     alignItems: 'center',

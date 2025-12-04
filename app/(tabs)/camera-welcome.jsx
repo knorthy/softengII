@@ -16,12 +16,22 @@ import {
   View,
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import History from '../../components/history';
 import { hp, wp } from '../../helpers/common';
 
 const BACKEND_UPLOAD_URL = 'http://192.168.68.119:8000/camera';
 
 export default function CameraWelcome() {
   const router = useRouter();
+
+  const [historyVisible, setHistoryVisible] = useState(false);
+  
+  const handleSelectAssessment = (assessment) => {
+  console.log('Selected assessment:', assessment);
+  setHistoryVisible(false); 
+
+  };
+
   const insets = useSafeAreaInsets();
   const [uploading, setUploading] = useState(false);
 
@@ -75,7 +85,8 @@ export default function CameraWelcome() {
 
       {/* Top Bar */}
       <View style={styles.topBar}>
-        <TouchableOpacity hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}>
+        <TouchableOpacity hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
+        onPress={() => setHistoryVisible(true)}>
           <Ionicons name="menu" size={28} color="#333" />
         </TouchableOpacity>
 
@@ -133,7 +144,7 @@ export default function CameraWelcome() {
         )}
       </ScrollView>
 
-      {/* FIXED BOTTOM BAR – Two buttons side-by-side */}
+      {/* BOTTOM BAR */}
       <View style={[styles.bottomBar, { paddingBottom: insets.bottom + hp(2) }]}>
         <TouchableOpacity
           style={[styles.bottomButton, styles.uploadButton, uploading && styles.buttonDisabled]}
@@ -155,6 +166,12 @@ export default function CameraWelcome() {
           </View>
         </TouchableOpacity>
       </View>
+
+        <History
+            visible={historyVisible}
+            onClose={() => setHistoryVisible(false)}
+            onSelectAssessment={handleSelectAssessment}
+        />
     </SafeAreaView>
   );
 }
@@ -170,6 +187,7 @@ const styles = StyleSheet.create({
     paddingBottom: hp(2.5),
     marginTop: Platform.select({ ios: 0, android: hp(1) }),
   },
+
   avatarContainer: {
     width: wp(9),
     height: wp(9),
@@ -178,18 +196,28 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#ddd',
   },
-  avatar: { width: '100%', height: '100%' },
-  scrollView: { flex: 1 },
+
+  avatar: { 
+    width: '100%', 
+    height: '100%' 
+  },
+
+  scrollView: { 
+    flex: 1 
+  },
+
   scrollContent: {
     paddingHorizontal: wp(6),
     paddingBottom: hp(12),
   },
+
   headerTitle: {
     fontSize: hp(3.5),
     fontWeight: '700',
     marginBottom: hp(3),
     marginTop: hp(2),
   },
+
   headerBlue: { color: '#007AFF' },
   guideCard: {
     backgroundColor: '#F5F5F5',
@@ -197,25 +225,50 @@ const styles = StyleSheet.create({
     padding: wp(5),
     marginBottom: hp(3),
   },
-  guideTitle: { fontSize: hp(2.2), fontWeight: '700', color: '#333', marginBottom: hp(2) },
-  section: { marginBottom: hp(2) },
-  sectionTitle: { fontSize: hp(2), fontWeight: '600', color: '#333', marginBottom: hp(1.5) },
+
+  guideTitle: { 
+    fontSize: hp(2.2), 
+    fontWeight: '700', 
+    color: '#333', 
+    marginBottom: hp(2) 
+  },
+
+  section: { 
+    marginBottom: hp(2) 
+  },
+  
+  sectionTitle: { 
+    fontSize: hp(2), 
+    fontWeight: '600', 
+    color: '#333', 
+    marginBottom: hp(1.5) 
+  },
+
   imageGrid: {
     flexDirection: 'row',
     flexWrap: 'wrap',
     gap: wp(3),
     marginBottom: hp(2),
   },
+
   imagePlaceholder: {
     width: (wp(78) - wp(5)) / 2,
     height: wp(28),
     backgroundColor: '#E0E0E0',
     borderRadius: 12,
   },
-  note: { fontSize: hp(1.6), color: '#666', lineHeight: hp(2.2) },
-  noteBold: { fontWeight: '700', color: '#333' },
 
-  // Bottom fixed bar with two side-by-side buttons
+  note: { 
+    fontSize: hp(1.6), 
+    color: '#666', 
+    lineHeight: hp(2.2) 
+  },
+
+  noteBold: { 
+    fontWeight: '700', 
+    color: '#333' 
+  },
+
   bottomBar: {
     position: 'absolute',
     bottom: 0,
