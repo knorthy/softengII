@@ -80,7 +80,7 @@ export default function History({
  
 const handleAssessNew = () => {
   onClose(); 
-  router.push('/assessment');
+  router.push('/home');
 };
 
   return (
