@@ -1,13 +1,20 @@
+import { useNavigation } from '@react-navigation/native';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 export default function AvatarBottomSheet({ onPick, onClose }) {
+  const navigation = useNavigation();
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Account Options</Text>
 
       <TouchableOpacity
         style={[styles.optionButton, styles.primary]}
-        onPress={() => onPick?.('viewProfile')}
+        onPress={() => {
+        navigation.navigate('(tabs)', { 
+        screen: 'viewprofile'   
+      });
+        onClose?.();
+      }}
       >
         <Text style={styles.optionText}>View Profile</Text>
       </TouchableOpacity>
@@ -28,7 +35,6 @@ export default function AvatarBottomSheet({ onPick, onClose }) {
     </View>
   );
 }
-
 const styles = StyleSheet.create({
   container: {
     paddingBottom: 24,
