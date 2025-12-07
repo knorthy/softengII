@@ -16,6 +16,9 @@ This is an [Expo](https://expo.dev) project created with [`create-expo-app`](htt
    npm i @gorhom/bottom-sheet
 
    expo install expo-image-picker
+   npm install @gorhom/bottom-sheet react-native-reanimated react-native-gesture-handler
+# or
+yarn add @gorhom/bottom-sheet react-native-reanimated react-native-gesture-handler
 
    npx expo install @react-navigation/drawer react-native-gesture-handler react-native-reanimated 
    ```
